@@ -14,11 +14,8 @@ import { ChatPageComponent } from './pages/chat-page/chat-page.component';
     RegisterPageComponent,
     ChatPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
