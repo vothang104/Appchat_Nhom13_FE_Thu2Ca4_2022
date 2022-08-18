@@ -5,13 +5,33 @@
       <form (ngSubmit)="onregister()" name="registerForm" [formGroup]="registerForm">
         <div class="user-box">
           <input type="text" name="userName" formControlName="userName" />
-          <label>Username</label>
+          <label>Full Name</label>
           <span
             class="validate-register"
             *ngIf="!registerForm.controls['userName'].valid"
             >Username is required (at least 6 characters)</span
           >
         </div>
+
+        <div class="user-box">
+            <input type="text" name="userName" formControlName="userName" />
+            <label>Mobile Number</label>
+            <span
+              class="validate-register"
+              *ngIf="!registerForm.controls['userName'].valid"
+              >Username is required (at least 6 characters)</span
+            >
+          </div>
+
+          <div class="user-box">
+            <input type="text" name="userName" formControlName="userName" />
+            <label>Email Address</label>
+            <span
+              class="validate-register"
+              *ngIf="!registerForm.controls['userName'].valid"
+              >Username is required (at least 6 characters)</span
+            >
+          </div>
   
         <div class="user-box user-box1">
           <input
@@ -72,13 +92,13 @@
           >
         </div>
         <div class="btn-register1">
-          <button class="btn-submit" type="submit">
+          <a class="btn-submit" type="submit">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            register
-          </button>
+            Login
+          </a>
           <button class="btn-submit" type="submit">
             <span></span>
             <span></span>

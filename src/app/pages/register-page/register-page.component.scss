@@ -7,7 +7,7 @@ html {
     font-family: sans-serif;
   }
   
-  .container-login {
+  .container-register {
     width: 100%;
     height: 100vh;
     background: linear-gradient(#141e30, #243b55);
@@ -17,7 +17,7 @@ html {
     background-size: cover;
   }
   
-  .login-box {
+  .register-box {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -30,19 +30,19 @@ html {
     border-radius: 10px;
   }
   
-  .login-box h2 {
+  .register-box h2 {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
     text-align: center;
   }
   
-  .login-box .user-box {
+  .register-box .user-box {
     position: relative;
     height: 80px;
   }
   
-  .login-box .user-box input {
+  .register-box .user-box input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -53,7 +53,7 @@ html {
     outline: none;
     background: transparent;
   }
-  .login-box .user-box label {
+  .register-box .user-box label {
     position: absolute;
     top: 0;
     left: 0;
@@ -64,15 +64,15 @@ html {
     transition: 0.5s;
   }
   
-  .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
+  .register-box .user-box input:focus ~ label,
+  .register-box .user-box input:valid ~ label {
     top: -20px;
     left: 0;
     color: #03e9f4;
     font-size: 12px;
   }
   
-  .login-box form .btn-submit {
+  .register-box form .btn-submit {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -89,13 +89,13 @@ html {
     border: navajowhite;
     cursor: pointer;
   }
-  .validate-login {
+  .validate-register {
     color: rgb(193, 174, 174);
     margin-bottom: 20px;
     font-size: 10px;
   }
   
-  .login-box .btn-submit:hover {
+  .register-box .btn-submit:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
@@ -103,12 +103,12 @@ html {
       0 0 100px #03e9f4;
   }
   
-  .login-box .btn-submit span {
+  .register-box .btn-submit span {
     position: absolute;
     display: block;
   }
   
-  .login-box .btn-submit span:nth-child(1) {
+  .register-box .btn-submit span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -127,7 +127,7 @@ html {
     }
   }
   
-  .login-box .btn-submit span:nth-child(2) {
+  .register-box .btn-submit span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -147,7 +147,7 @@ html {
     }
   }
   
-  .login-box .btn-submit span:nth-child(3) {
+  .register-box .btn-submit span:nth-child(3) {
     bottom: 0;
     right: -100%;
     width: 100%;
@@ -167,7 +167,7 @@ html {
     }
   }
   
-  .login-box .btn-submit span:nth-child(4) {
+  .register-box .btn-submit span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
@@ -209,7 +209,7 @@ html {
     }
   }
   
-  .btn-login1 {
+  .btn-register1 {
     display: flex;
     align-items: center;
     justify-content: space-around;
