@@ -4,7 +4,7 @@
       <h2>Register</h2>
       <form (ngSubmit)="onRegister()" name="registerForm" [formGroup]="registerForm">
         <div class="user-box">
-          <input type="text" name="fullname" formControlName="fullname" />
+          <input type="text" name="fullname" autocomplete="off" formControlName="fullname" />
           <label>Full Name</label>
           <span
             class="validate-register"
@@ -14,7 +14,7 @@
         </div>
 
         <div class="user-box">
-            <input type="number" name="phoneNumber" formControlName="mobile" />
+            <input type="text" name="phoneNumber" formControlName="mobile" />
             <label>Mobile Number</label>
             <span
               class="validate-register"
@@ -24,7 +24,7 @@
           </div>
 
           <div class="user-box">
-            <input type="text" name="email" formControlName="email" />
+            <input type="text" name="email" autocomplete="off" formControlName="email" />
             <label>Email Address</label>
             <span
               class="validate-register"
