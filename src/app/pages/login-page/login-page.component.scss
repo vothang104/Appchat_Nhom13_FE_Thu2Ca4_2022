@@ -213,4 +213,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+}
+
+.reister1 {
+  margin-top: 20px;
+  color: #03e9f4;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 18px;
+}
+.reister1:hover {
+  color: white;
+  transition: all ease-in 0.2s;
 }
