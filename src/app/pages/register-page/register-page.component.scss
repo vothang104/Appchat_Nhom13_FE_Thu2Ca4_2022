@@ -211,7 +211,15 @@ html {
   
   .btn-register1 {
     display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     align-items: center;
     justify-content: space-around;
+  }
+  .link-submit{
+    text-decoration: underline;
+    cursor: pointer;
+    color: #03e9f4;
+
   }
   
