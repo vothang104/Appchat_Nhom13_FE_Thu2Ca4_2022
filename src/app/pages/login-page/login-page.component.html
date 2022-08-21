@@ -8,12 +8,13 @@
           name="userName"
           [(ngModel)]="user"
           formControlName="userName"
+          autocomplete="off"
         />
         <label>Username</label>
         <span
           class="validate-login"
           *ngIf="!loginForm.controls['userName'].valid"
-          >Username is required (at least 6 characters)</span
+          >Username is required (at least 4 characters)</span
         >
       </div>
 
@@ -24,6 +25,7 @@
           [type]="hide ? 'text' : 'password'"
           name="passWord"
           formControlName="passWord"
+          autocomplete="off"
         />
         <label>Password</label>
         <button
@@ -73,7 +75,7 @@
         <span
           class="validate-login"
           *ngIf="!loginForm.controls['passWord'].valid"
-          >Password is required (at least 8 characters)</span
+          >Password is required (at least 5 characters)</span
         >
       </div>
       <div class="btn-login1">
