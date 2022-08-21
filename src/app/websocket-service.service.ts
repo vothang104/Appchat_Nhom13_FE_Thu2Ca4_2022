@@ -15,4 +15,7 @@ export class WebsocketServiceService {
   login(data: any): void {
     this.client.send(JSON.stringify(data));
   }
+  register(data: any): void {
+    this.client.send(JSON.stringify(data));
+  }
 }
