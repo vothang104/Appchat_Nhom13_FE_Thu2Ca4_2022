@@ -3,7 +3,12 @@
     <h2>Login</h2>
     <form (ngSubmit)="onLogin()" name="loginForm" [formGroup]="loginForm">
       <div class="user-box">
-        <input type="text" name="userName" formControlName="userName" />
+        <input
+          type="text"
+          name="userName"
+          [(ngModel)]="user"
+          formControlName="userName"
+        />
         <label>Username</label>
         <span
           class="validate-login"
@@ -14,6 +19,7 @@
 
       <div class="user-box user-box1">
         <input
+          [(ngModel)]="pass"
           type="password"
           [type]="hide ? 'text' : 'password'"
           name="passWord"
