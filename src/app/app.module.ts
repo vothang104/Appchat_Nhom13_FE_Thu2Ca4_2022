@@ -18,7 +18,12 @@ import { Course1Component } from './course1/course1.component';
     ChatPageComponent,
     Course1Component,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
