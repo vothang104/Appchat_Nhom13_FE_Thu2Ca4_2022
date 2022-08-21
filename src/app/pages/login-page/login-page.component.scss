@@ -22,6 +22,7 @@ body {
   top: 50%;
   left: 50%;
   width: 400px;
+  height: 430px;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.7);
@@ -222,7 +223,7 @@ body {
   color: #03e9f4;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
 }
 .reister1:hover {
   color: white;
