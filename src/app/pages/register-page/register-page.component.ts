@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WebsocketServiceService } from 'src/app/websocket-service.service';
 
 @Component({
   selector: 'app-register-page',
@@ -10,26 +11,52 @@ import { Router } from '@angular/router';
 })
 export class RegisterPageComponent implements OnInit {
   hide: boolean = false;
+  user: string = '';
+  pass: string = '';
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private socket: WebsocketServiceService
+  ) { }
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.socket.client.onmessage = (resp: any) => {
+      const data = JSON.parse(resp.data)
+      console.log(data);
+      
+      if (data?.status === "success") {
+        alert("register successfully")
+        this.router.navigate(["/login"])
+      }else {
+        alert(`Register  ${data?.mes}`)
+        this.user="";
+        this.pass="";
+        this.router.navigate(["/register"])
+      }
+    }
+  }
 
   registerForm: FormGroup = this.fb.group({
-   fullname: [''],
-   mobile: [''],
-   email: [''],
-   password: [''],
-   confirmps:['']
+    userName: ['', [Validators.required, Validators.minLength(4)]],
+    passWord: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   onRegister() {
-    this.http.post<any>("http://localhost:3000/registerUsers", this.registerForm.value).subscribe(res=>{
-      alert("Register Successfull");
-      this.registerForm.reset();
-      this.router.navigate(["login"]);
-    },err=>{
-      alert("Something went wrong!!");
-    })
-}}
+
+    const dataRegister = {
+
+      action: 'onchat',
+      data: {
+        event: 'REGISTER',
+        data: {
+          user: this.user,
+          pass: this.pass
+        }
+      }
+
+    }
+    this.socket.register(dataRegister)
+  }
+
+}
 
