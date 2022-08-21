@@ -6,6 +6,7 @@ const chatUrl = 'ws://140.238.54.136:8080/chat/chat';
 })
 export class WebsocketServiceService {
   client: any;
+  currentUser: any;
   constructor() {
     this.client = new WebSocket(chatUrl);
     this.client.onopen = () => {
