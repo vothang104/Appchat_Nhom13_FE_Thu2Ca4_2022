@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 
@@ -18,6 +18,7 @@ export class RegisterPageComponent implements OnInit {
     private router: Router,
     private socket: WebsocketServiceService
   ) { }
+  
 
   ngOnInit() {
     this.socket.client.onmessage = (resp: any) => {
@@ -35,10 +36,23 @@ export class RegisterPageComponent implements OnInit {
       }
     }
     
+    
   }
+ 
+
   registerForm: FormGroup = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
-    passWord: ['', [Validators.required, Validators.minLength(5)]],
+    passWord: ['', [
+      Validators.required,
+      Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+      Validators.minLength(6),
+      Validators.maxLength(25),
+      // matchValidator('confirmPassword', true)
+    ]],
+    confirmassword: ['', [
+      Validators.required,
+      // matchValidator('password')
+    ]],
   });
 
   onRegister() {
