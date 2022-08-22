@@ -20,20 +20,7 @@ export class RegisterPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.socket.client.onmessage = (resp: any) => {
-      const data = JSON.parse(resp.data)
-      console.log(data);
-      
-      if (data?.status === "success") {
-        alert("register successfully")
-        this.router.navigate(["/login"])
-      }else {
-        alert(`Register  ${data?.mes}`)
-        this.user="";
-        this.pass="";
-        this.router.navigate(["/register"])
-      }
-    }
+
   }
 
   registerForm: FormGroup = this.fb.group({
@@ -42,20 +29,6 @@ export class RegisterPageComponent implements OnInit {
   });
 
   onRegister() {
-
-    const dataRegister = {
-
-      action: 'onchat',
-      data: {
-        event: 'REGISTER',
-        data: {
-          user: this.user,
-          pass: this.pass
-        }
-      }
-
-    }
-    this.socket.register(dataRegister)
   }
 
 }
