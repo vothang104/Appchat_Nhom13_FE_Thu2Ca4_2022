@@ -177,6 +177,18 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
     this.socket.sendMessage(data);
     this.chatData.push({ name: this.currentUser, mes: this.messageText });
   }
+  createRoom(): void {
+    const data = {
+      action: 'onchat',
+      data: {
+        event: 'CREATE_ROOM',
+        data: {
+          name: this.nameRoom
+        }
+      }
+    }
+    this.socket.sendMessage(data)
+  }
   // logout
   logOut() {
     const dataLogout = {
