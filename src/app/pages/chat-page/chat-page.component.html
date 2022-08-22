@@ -190,7 +190,11 @@
                     placeholder="Type message here..."
                     [(ngModel)]="messageText"
                   />
-                  <span (click)="sendPeople()" title="Send" class="btn-send">
+                  <span
+                    (click)="isRoom ? sendRoom() : sendPeople()"
+                    title="Send"
+                    class="btn-send"
+                  >
                     <i class="fas fa-paper-plane"></i>
                   </span>
                 </div>
