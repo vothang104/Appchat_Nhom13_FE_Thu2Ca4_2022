@@ -30,8 +30,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       const data = JSON.parse(resp.data);
       if (data?.status === 'success') {
         console.log(data);
-        localStorage.setItem('RE_LOGIN_CODE', data.data.RE_LOGIN_CODE)
-        this.currentUser = this.user;
+        this.socket.currentUser = this.user;
         this.user = '';
         this.pass = '';
         this.router.navigate(['/chat']);
@@ -45,8 +44,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   loginForm: FormGroup = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(3)]],
-    passWord: ['', [Validators.required, Validators.minLength(2)]],
+    userName: ['', [Validators.required, Validators.minLength(4)]],
+    passWord: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   onLogin() {
