@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   hide: boolean = false;
   user: string = '';
   pass: string = '';
@@ -18,25 +18,12 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private socket: WebsocketServiceService
-  ) {}
+  ) { }
+  ngOnDestroy(): void {
+  }
 
   ngOnInit() {
-    this.socket.client.onmessage = (resp: any) => {
-      console.log(resp);
-      const data = JSON.parse(resp.data);
-      if (data?.status === 'success') {
-        console.log(data);
-        this.socket.currentUser = this.user;
-        this.user = '';
-        this.pass = '';
-        this.router.navigate(['/chat']);
-      } else {
-        alert(data.mes);
-        this.user = '';
-        this.pass = '';
-        this.router.navigate(['/login']);
-      }
-    };
+
   }
 
   loginForm: FormGroup = this.fb.group({
@@ -45,19 +32,6 @@ export class LoginPageComponent implements OnInit {
   });
 
   onLogin() {
-    if (!this.loginForm.valid) {
-      return;
-    }
-    const dataLogin = {
-      action: 'onchat',
-      data: {
-        event: 'LOGIN',
-        data: {
-          user: this.user,
-          pass: this.pass,
-        },
-      },
-    };
-    this.socket.login(dataLogin);
+
   }
 }

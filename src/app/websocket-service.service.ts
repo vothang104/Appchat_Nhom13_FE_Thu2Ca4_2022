@@ -5,18 +5,11 @@ const chatUrl = 'ws://140.238.54.136:8080/chat/chat';
   providedIn: 'root',
 })
 export class WebsocketServiceService {
-  client: any;
-  currentUser: any;
+  ws: WebSocket
   constructor() {
-    this.client = new WebSocket(chatUrl);
-    this.client.onopen = () => {
-      console.log('Connected to server');
-    };
+    this.ws = new WebSocket(chatUrl)
   }
-  login(data: any): void {
-    this.client.send(JSON.stringify(data));
-  }
-  register(data: any): void {
-    this.client.send(JSON.stringify(data));
+  sendMessage(data: any) {
+    this.ws.send(JSON.stringify(data))
   }
 }
