@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   hide: boolean = false;
   user: string = '';
   pass: string = '';
@@ -18,14 +18,19 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private socket: WebsocketServiceService
-  ) {}
+  ) { }
+  ngOnDestroy(): void {
+    this.socket.close()
+  }
 
   ngOnInit() {
+    this.socket.open()
     this.socket.client.onmessage = (resp: any) => {
       console.log(resp);
       const data = JSON.parse(resp.data);
       if (data?.status === 'success') {
         console.log(data);
+        localStorage.setItem('RE_LOGIN_CODE', data.data.RE_LOGIN_CODE)
         this.currentUser = this.user;
         this.user = '';
         this.pass = '';
