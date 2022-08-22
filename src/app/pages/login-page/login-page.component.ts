@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   hide: boolean = false;
   user: string = '';
   pass: string = '';
@@ -18,36 +18,29 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private socket: WebsocketServiceService
-  ) {}
-
-  ngOnInit() {
-    this.socket.client.onmessage = (resp: any) => {
-      console.log(resp);
+  ) {
+    this.socket.ws.onmessage = (resp: any) => {
       const data = JSON.parse(resp.data);
-      if (data?.status === 'success') {
-        console.log(data);
-        this.currentUser = this.user;
-        this.user = '';
-        this.pass = '';
+      console.log(data);
+      if (data.status === 'success') {
         this.router.navigate(['/chat']);
+        localStorage.setItem('currentUser', this.user);
       } else {
-        alert(data.mes);
-        this.user = '';
-        this.pass = '';
+        alert('sai thong tin dang nhap');
         this.router.navigate(['/login']);
       }
     };
   }
+  ngOnDestroy(): void {}
+
+  ngOnInit() {}
 
   loginForm: FormGroup = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(3)]],
-    passWord: ['', [Validators.required, Validators.minLength(2)]],
+    userName: ['', [Validators.required, Validators.minLength(4)]],
+    passWord: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   onLogin() {
-    if (!this.loginForm.valid) {
-      return;
-    }
     const dataLogin = {
       action: 'onchat',
       data: {
@@ -58,6 +51,6 @@ export class LoginPageComponent implements OnInit {
         },
       },
     };
-    this.socket.login(dataLogin);
+    this.socket.sendMessage(dataLogin);
   }
 }

@@ -1,387 +1,403 @@
-$color-blue: #0072B5;
+$color-blue: #0072b5;
 $color-blue-light: #1c98f7;
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(222, 219, 219);
-    border-radius: 10px;
+  background-color: rgb(222, 219, 219);
+  border-radius: 10px;
 }
 
 .chat {
-    width: 100%;
-    height: 100vh;
-    max-width: 1280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-    height: 60px;
-    width: 100%;
-    padding: 0 20px;
-    background-color: $color-blue;
-    background-image: linear-gradient(to right, $color-blue-light, $color-blue);
+  height: 60px;
+  width: 100%;
+  padding: 0 20px;
+  background-color: $color-blue;
+  background-image: linear-gradient(to right, $color-blue-light, $color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 10px 0 #ccc;
+
+  &-logo-wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 1px 10px 0 #ccc;
 
-    &-logo-wrapper {
-        display: flex;
-        align-items: center;
-
-        span {
-            font-size: 16px;
-            font-weight: 600;
-            color: #fff;
-        }
+    span {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
     }
+  }
 
-    &-logo {
-        width: 50px;
-        height: 50px;
-        background-image: url(https://cryptologos.cc/logos/chatcoin-chat-logo.png);
-        background-size: cover;
-        background-repeat: no-repeat;
+  &-logo {
+    width: 50px;
+    height: 50px;
+    background-image: url(https://cryptologos.cc/logos/chatcoin-chat-logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  &-username {
+    color: #fff;
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: #fff;
+
+    &-login,
+    &-register {
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        font-weight: 600;
+      }
     }
-
-    &-username {
-        color: #fff;
-    }
-
-    &-actions {
-        display: flex;
-        align-items: center;
-        column-gap: 5px;
-        color: #fff;
-
-        &-login,
-        &-register {
-            cursor: pointer;
-            font-size: 14px;
-
-            &:hover {
-                font-weight: 600;
-            }
-        }
-    }
+  }
 }
 
 .container {
-    width: 100%;
-    height: calc(100vh - 60px);
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 20px 20px;
-
+  width: 100%;
+  height: calc(100vh - 60px);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 20px;
 }
 
 .sidebar {
-    height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &-top {
+    display: flex;
+    column-gap: 24px;
+    background-image: linear-gradient(to right, $color-blue-light, $color-blue);
+    padding: 20px;
+    border-radius: 6px 6px 0 0;
+
+    &-input {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+
+      label {
+        font-size: 14px;
+        color: #fff;
+        font-weight: 500;
+      }
+
+      input {
+        outline: none;
+        border: none;
+        padding: 8px;
+        border-radius: 4px;
+        width: 100%;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      flex-direction: column;
+      row-gap: 5px;
+      justify-content: space-between;
+
+      .create-room,
+      .join-room {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #484545;
+        transition: all 0.1s linear;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    flex-grow: 1;
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
+    row-gap: 12px;
+    overflow: auto;
+    padding: 12px;
 
-    &-top {
-        display: flex;
-        column-gap: 24px;
-        background-image: linear-gradient(to right, $color-blue-light, $color-blue);
-        padding: 20px;
-        border-radius: 6px 6px 0 0;
+    &-room {
+      width: 100%;
+      height: 60px;
+      flex-shrink: 0;
+      background-color: #fff;
+      box-shadow: 0 0 5px 0 #ccc;
+      border-radius: 4px;
+      display: flex;
+      column-gap: 12px;
+      align-items: center;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: all 0.1s linear;
 
-        &-input {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            row-gap: 5px;
+      &.active {
+        background-image: linear-gradient(
+          to right,
+          $color-blue-light,
+          $color-blue
+        );
+        pointer-events: none;
 
-            label {
-                font-size: 14px;
-                color: #fff;
-                font-weight: 500;
-            }
-
-            input {
-                outline: none;
-                border: none;
-                padding: 8px;
-                border-radius: 4px;
-                width: 100%;
-            }
+        .icon {
+          background-color: #fff;
+          color: $color-blue-light;
         }
 
-        &-actions {
-            display: flex;
-            flex-direction: column;
-            row-gap: 5px;
-            justify-content: space-between;
-
-            .create-room,
-            .join-room {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                padding: 5px;
-                background-color: #fff;
-                border-radius: 4px;
-                cursor: pointer;
-                color: #484545;
-                transition: all 0.1s linear;
-
-                &:hover {
-                    transform: scale(1.05);
-                }
-            }
+        .name {
+          color: #fff;
         }
+
+        &:hover {
+          transform: scale(1);
+          box-shadow: 0 0 5px 0 #ccc;
+        }
+      }
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 5px 0 $color-blue-light;
+      }
+
+      .icon {
+        display: inline-block;
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        background-color: $color-blue-light;
+        border-radius: 50%;
+        color: #fff;
+      }
+
+      .name {
+        font-size: 14px;
+      }
     }
-
-    &-bottom {
-        flex-grow: 1;
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-        row-gap: 12px;
-        overflow: auto;
-        padding: 12px;
-
-        &-room {
-            width: 100%;
-            height: 60px;
-            flex-shrink: 0;
-            background-color: #fff;
-            box-shadow: 0 0 5px 0 #ccc;
-            border-radius: 4px;
-            display: flex;
-            column-gap: 12px;
-            align-items: center;
-            padding: 0 20px;
-            cursor: pointer;
-            transition: all 0.1s linear;
-
-            &.active {
-                background-image: linear-gradient(to right, $color-blue-light, $color-blue);
-                pointer-events: none;
-
-                .icon {
-                    background-color: #fff;
-                    color: $color-blue-light;
-                }
-
-                .name {
-                    color: #fff;
-                }
-
-                &:hover {
-                    transform: scale(1);
-                    box-shadow: 0 0 5px 0 #ccc;
-                }
-            }
-
-            &:hover {
-                transform: scale(1.02);
-                box-shadow: 0 0 5px 0 $color-blue-light;
-
-            }
-
-            .icon {
-                display: inline-block;
-                padding: 5px;
-                width: 30px;
-                height: 30px;
-                background-color: $color-blue-light;
-                border-radius: 50%;
-                color: #fff;
-            }
-
-            .name {
-                font-size: 14px;
-            }
-
-        }
-    }
+  }
 }
 
 .chat-content {
-    height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &-top {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(to right, $color-blue-light, $color-blue);
+    border-radius: 6px 6px 0 0;
+
+    .user {
+      display: flex;
+      column-gap: 5px;
+      align-items: center;
+
+      .user-icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: $color-blue-light;
+        padding: 5px;
+      }
+
+      .user-name {
+        font-size: 14px;
+        color: #fff;
+        font-weight: 550;
+      }
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+
+      .status {
+        font-size: 14px;
+        color: #fff;
+      }
+
+      .icon-option {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s linear;
+
+        &:hover {
+          background-color: #fff;
+          color: $color-blue;
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    height: calc(100% - 70px);
+    flex-shrink: 0;
+    background-color: rgb(245, 242, 242);
+    border-radius: 0 0 6px 6px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
-    &-top {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-image: linear-gradient(to right, $color-blue-light, $color-blue);
-        border-radius: 6px 6px 0 0;
+    .messages {
+      height: 90%;
+      flex-shrink: 0;
+      overflow: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
 
-        .user {
-            display: flex;
-            column-gap: 5px;
-            align-items: center;
+      .message {
+        width: fit-content;
+        max-width: 60%;
+        padding: 8px 10px;
+        border-radius: 50px;
+        color: #fff;
+        font-size: 14px;
+        background-color: $color-blue;
+        align-self: flex-end;
 
-            .user-icon {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background-color: #fff;
-                color: $color-blue-light;
-                padding: 5px;
-            }
-
-            .user-name {
-                font-size: 14px;
-                color: #fff;
-                font-weight: 550;
-            }
+        &.another {
+          background-color: #ccc;
+          color: #000;
+          align-self: flex-start;
         }
-
-        .actions {
-            display: flex;
-            align-items: center;
-            column-gap: 5px;
-
-            .status {
-                font-size: 14px;
-                color: #fff;
-            }
-
-            .icon-option {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                padding: 5px;
-                border-radius: 50%;
-                color: #fff;
-                cursor: pointer;
-                transition: all 0.2s linear;
-
-                &:hover {
-                    background-color: #fff;
-                    color: $color-blue;
-                }
-            }
-        }
+      }
     }
 
-    &-bottom {
-        height: calc(100% - 70px);
-        flex-shrink: 0;
-        background-color: rgb(245, 242, 242);
-        border-radius: 0 0 6px 6px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+    .typing {
+      width: 100%;
+      height: 10%;
+      flex-shrink: 0;
+      display: flex;
+      column-gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      border-radius: 0 0 6px 6px;
+      background-image: linear-gradient(
+        to right,
+        $color-blue-light,
+        $color-blue
+      );
 
-        .messages {
-            height: 90%;
-            flex-shrink: 0;
-            overflow: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            row-gap: 12px;
+      .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.1s linear;
 
-            .message {
-                width: fit-content;
-                max-width: 60%;
-                padding: 8px 10px;
-                border-radius: 50px;
-                color: #fff;
-                font-size: 14px;
-                background-color: $color-blue;
-                align-self: flex-end;
-
-                &.another {
-                    background-color: #ccc;
-                    color: #000;
-                    align-self: flex-start;
-                }
-            }
+        &:hover {
+          transform: scale(1.1);
         }
+      }
 
-        .typing {
-            width: 100%;
-            height: 10%;
-            flex-shrink: 0;
-            display: flex;
-            column-gap: 12px;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            border-radius: 0 0 6px 6px;
-            background-image: linear-gradient(to right, $color-blue-light, $color-blue);
+      .input {
+        flex-grow: 1;
+        padding: 8px;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+      }
 
-            .icon {
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                color: #fff;
-                cursor: pointer;
-                transition: all 0.1s linear;
+      .btn-send {
+        display: inline-block;
+        text-align: center;
+        width: 40px;
+        height: 30px;
+        padding: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.1s linear;
+        background-color: #fff;
+        color: $color-blue;
 
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
-
-            .input {
-                flex-grow: 1;
-                padding: 8px;
-                border: none;
-                outline: none;
-                border-radius: 4px;
-            }
-
-            .btn-send {
-                display: inline-block;
-                text-align: center;
-                width: 40px;
-                height: 30px;
-                padding: 5px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: all 0.1s linear;
-                background-color: #fff;
-                color: $color-blue;
-
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
+        &:hover {
+          transform: scale(1.1);
         }
+      }
     }
+  }
 }
 
 .row {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .col {
-    padding: 0 12px;
+  padding: 0 12px;
 }
 
 .col-4 {
-    width: 40%;
+  width: 40%;
 
-    @media screen and (max-width: 768px) {
-        width: 100%;
-    }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .col-6 {
-    width: 60%;
+  width: 60%;
 
-    @media screen and (max-width: 768px) {
-        width: 100%;
-    }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.header-actions a {
+  color: white;
+  text-decoration: none;
+}
+.logout-action {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }

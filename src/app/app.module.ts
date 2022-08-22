@@ -1,3 +1,4 @@
+import { WebsocketServiceService } from 'src/app/websocket-service.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +25,7 @@ import { Course1Component } from './course1/course1.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [WebsocketServiceService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
