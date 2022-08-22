@@ -56,12 +56,8 @@
             </div>
             <div class="sidebar-bottom">
               <div *ngFor="let user of userList"
-                [ngClass]="room === user.name && !!user.type === isRoom ? 'active' : ''" class="sidebar-bottom-room"
-                (click)="
-                    user.type
-                      ? joinRoom(user.name)
-                      : getPeopleChatMess(user.name)
-                  ">
+                [ngClass]="room === user.name && !!user.type === isRoom ? 'active' : '' " class="sidebar-bottom-room"
+                (click)="user.type ? joinRoom(user.name) : getPeopleChatMess(user.name)">
                 <span *ngIf="!user.type" class="icon">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -74,7 +70,7 @@
                       d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                   </svg>
                 </span>
-                <span class="name">{{ user.name }}</span>
+                <span class="name">{{user.name}}</span>
               </div>
             </div>
           </div>
@@ -83,19 +79,19 @@
           <div class="chat-content">
             <div class="chat-content-top">
               <div class="user">
-                <span *ngIf="isRoom" class="user-icon">
+                <span *ngIf="room && isRoom" class="user-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path
                       d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                   </svg>
                 </span>
-                <span *ngIf="!isRoom" class="user-icon">
+                <span *ngIf="room && !isRoom" class="user-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                       clip-rule="evenodd" />
                   </svg>
                 </span>
-                <span class="user-name">{{room || ''}}</span>
+                <span class="user-name">{{room || 'no chat'}}</span>
               </div>
               <div class="actions">
                 <span class="status">active</span>
@@ -110,14 +106,12 @@
             <div class="chat-content-bottom">
               <div *ngIf="room && chatData.length > 0" class="messages">
                 <div *ngFor="let message of chatData" class="message"
-                  [ngClass]="message.name === currentUser ? '' : 'another'">
-                  <span class="content">
-                    {{ message.mes }}
-                  </span>
+                  [ngClass]="message.name === currentUser ? '' : 'another' ">
+                  <span class="content">{{message.mes}}</span>
                   <span class="user">{{message.name}}</span>
                 </div>
               </div>
-              <div *ngIf="room && chatData.length === 0" class="messages">Hãy là người đâu tiên bắt chuyện</div>
+              <div *ngIf="room && chatData.length === 0" class="messages">Hãy bắt đầu cuộc trò chuyện</div>
               <div *ngIf="!room" class="messages"></div>
               <div class="typing">
                 <span title="Voice" class="icon">
@@ -128,7 +122,7 @@
                   </svg>
                 </span>
                 <input class="input" type="text" placeholder="Type message here..." [(ngModel)]="messageText" />
-                <span (click)="sendPeople()" title="Send" class="btn-send">
+                <span (click)="isRoom ? sendRoom() : sendPeople()" title="Send" class="btn-send">
                   <i class="fas fa-paper-plane"></i>
                 </span>
               </div>

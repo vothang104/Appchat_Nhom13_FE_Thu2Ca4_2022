@@ -87,6 +87,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   }
   //join room
   joinRoomName(): void {
+    this.isRoom = true;
     const data = {
       action: 'onchat',
       data: {
@@ -143,6 +144,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   }
   // send people
   sendPeople(): void {
+    if (!this.messageText) return
     const data = {
       action: 'onchat',
       data: {
@@ -157,6 +159,36 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
     this.chatData.push({ name: this.currentUser, mes: this.messageText });
     console.log('send with data ~ ', data);
     this.socket.sendMessage(data);
+    this.messageText = ''
+  }
+  sendRoom(): void {
+    if (!this.messageText) return
+    const data = {
+      action: 'onchat',
+      data: {
+        event: 'SEND_CHAT',
+        data: {
+          type: 'room',
+          to: this.room,
+          mes: this.messageText,
+        },
+      },
+    };
+    this.socket.sendMessage(data);
+    this.chatData.push({ name: this.currentUser, mes: this.messageText })
+    this.messageText = ''
+  }
+  createRoom(): void {
+    const data = {
+      action: 'onchat',
+      data: {
+        event: 'CREATE_ROOM',
+        data: {
+          name: this.nameRoom
+        }
+      }
+    }
+    this.socket.sendMessage(data)
   }
   // logout
   logOut() {
