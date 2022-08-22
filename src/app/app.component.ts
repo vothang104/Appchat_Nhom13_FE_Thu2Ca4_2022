@@ -11,7 +11,6 @@ export class AppComponent {
   constructor(socket: WebsocketServiceService) {
     socket.ws.onopen = () => {
       console.log('Connected websocket');
-
-    }
+    };
   }
 }
