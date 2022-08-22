@@ -1,208 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat</title>
-  </head>
 
-  <body>
-    <div class="chat">
-      <header class="header">
-        <div class="header-logo-wrapper">
-          <div class="header-logo"></div>
-          <span>NLU CHAT</span>
-        </div>
-        <!-- <p class="header-username">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat</title>
+</head>
+
+<body>
+  <div class="chat">
+    <header class="header">
+      <div class="header-logo-wrapper">
+        <div class="header-logo"></div>
+        <span>NLU CHAT</span>
+      </div>
+      <!-- <p class="header-username">
                 Welcom <br> vothang
             </p> -->
-        <div *ngIf="!currentUser" class="header-actions">
-          <a routerLink="/login" class="header-actions-login">Login</a>
-          <span>|</span>
-          <a routerLink="/register" class="header-actions-register">Register</a>
-        </div>
-        <div *ngIf="currentUser" class="header-actions">
-          <span>Xin chào: {{ currentUser }}</span>
-          <span>|</span>
-          <span (click)="logOut()" class="logout-action">Log out</span>
-        </div>
-      </header>
-      <div class="container">
-        <div style="height: 100%" class="row">
-          <div style="height: 100%" class="col col-4">
-            <div class="sidebar">
-              <div class="sidebar-top">
-                <div class="sidebar-top-input">
-                  <label for="">Enter room</label>
-                  <input
-                    [(ngModel)]="nameRoom"
-                    type="text"
-                    placeholder="Enter room"
-                  />
-                </div>
-                <div class="sidebar-top-actions">
-                  <span (click)="createRoom()" title="create room" class="create-room">
-                    <svg
-                      class="icon"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    (click)="joinRoomName()"
-                    title="join room"
-                    class="join-room"
-                  >
-                    <svg
-                      class="icon"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </span>
-                </div>
+      <div *ngIf="!currentUser" class="header-actions">
+        <a routerLink="/login" class="header-actions-login">Login</a>
+        <span>|</span>
+        <a routerLink="/register" class="header-actions-register">Register</a>
+      </div>
+      <div *ngIf="currentUser" class="header-actions">
+        <span>Xin chào: {{ currentUser }}</span>
+        <span>|</span>
+        <span (click)="logOut()" class="logout-action">Log out</span>
+      </div>
+    </header>
+    <div class="container">
+      <div style="height: 100%" class="row">
+        <div style="height: 100%" class="col col-4">
+          <div class="sidebar">
+            <div class="sidebar-top">
+              <div class="sidebar-top-input">
+                <label for="">Enter room</label>
+                <input [(ngModel)]="nameRoom" type="text" placeholder="Enter room" />
               </div>
-              <div class="sidebar-bottom">
-                <div
-                  *ngFor="let user of userList"
-                  [ngClass]="room === user.name ? 'active' : ''"
-                  class="sidebar-bottom-room"
-                  (click)="
-                    user.type
-                      ? joinRoom(user.name)
-                      : getPeopleChatMess(user.name)
-                  "
-                >
-                  <span *ngIf="!user.type" class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span *ngIf="user.type" class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="name">{{ user.name }}</span>
-                </div>
+              <div class="sidebar-top-actions">
+                <span title="create room" class="create-room">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </span>
+                <span (click)="joinRoomName()" title="join room" class="join-room">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="sidebar-bottom">
+              <div *ngFor="let user of userList"
+                [ngClass]="room === user.name && !!user.type === isRoom ? 'active' : '' " class="sidebar-bottom-room"
+                (click)="user.type ? joinRoom(user.name) : getPeopleChatMess(user.name)">
+                <span *ngIf="!user.type" class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span *ngIf="user.type" class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                </span>
+                <span class="name">{{user.name}}</span>
               </div>
             </div>
           </div>
-          <div style="height: 100%" class="col col-6">
-            <div class="chat-content">
-              <div class="chat-content-top">
-                <div class="user">
-                  <span class="user-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                      />
-                    </svg>
-                  </span>
-                  <span class="user-name">User name</span>
-                </div>
-                <div class="actions">
-                  <span class="status">active</span>
-                  <span class="icon-option">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
-                      />
-                    </svg>
-                  </span>
+        </div>
+        <div style="height: 100%" class="col col-6">
+          <div class="chat-content">
+            <div class="chat-content-top">
+              <div class="user">
+                <span *ngIf="room && isRoom" class="user-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                </span>
+                <span *ngIf="room && !isRoom" class="user-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span class="user-name">{{room || 'no chat'}}</span>
+              </div>
+              <div class="actions">
+                <span class="status">active</span>
+                <span class="icon-option">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="chat-content-bottom">
+              <div *ngIf="room && chatData.length > 0" class="messages">
+                <div *ngFor="let message of chatData" class="message"
+                  [ngClass]="message.name === currentUser ? '' : 'another' ">
+                  <span class="content">{{message.mes}}</span>
+                  <span class="user">{{message.name}}</span>
                 </div>
               </div>
-              <div class="chat-content-bottom">
-                <div *ngIf="room" class="messages">
-                  <div
-                    *ngFor="let message of chatData"
-                    class="message"
-                    [ngClass]="message.name === currentUser ? '' : 'another'"
-                  >
-                    {{ message.mes }}
-                  </div>
-                </div>
-                <div *ngIf="!room" class="messages"></div>
-                <div class="typing">
-                  <span title="Voice" class="icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <input
-                    class="input"
-                    type="text"
-                    placeholder="Type message here..."
-                    [(ngModel)]="messageText"
-                  />
-                  <span
-                    (click)="isRoom ? sendRoom() : sendPeople()"
-                    title="Send"
-                    class="btn-send"
-                  >
-                    <i class="fas fa-paper-plane"></i>
-                  </span>
-                </div>
+              <div *ngIf="room && chatData.length === 0" class="messages">Hãy bắt đầu cuộc trò chuyện</div>
+              <div *ngIf="!room" class="messages"></div>
+              <div class="typing">
+                <span title="Voice" class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <input class="input" type="text" placeholder="Type message here..." [(ngModel)]="messageText" />
+                <span (click)="isRoom ? sendRoom() : sendPeople()" title="Send" class="btn-send">
+                  <i class="fas fa-paper-plane"></i>
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
