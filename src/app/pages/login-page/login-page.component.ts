@@ -18,13 +18,23 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private socket: WebsocketServiceService
-  ) { }
-  ngOnDestroy(): void {
+  ) {
+    this.socket.ws.onmessage = (resp: any) => {
+      const data = JSON.parse(resp.data);
+      console.log(data);
+      if (data.status === 'success') {
+        localStorage.setItem('relogin_code', JSON.stringify(data.data))
+        this.router.navigate(['/chat']);
+        localStorage.setItem('currentUser', this.user);
+      } else {
+        alert('sai thong tin dang nhap');
+        this.router.navigate(['/login']);
+      }
+    };
   }
+  ngOnDestroy(): void { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   loginForm: FormGroup = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
@@ -32,6 +42,16 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   });
 
   onLogin() {
-
+    const dataLogin = {
+      action: 'onchat',
+      data: {
+        event: 'LOGIN',
+        data: {
+          user: this.user,
+          pass: this.pass,
+        },
+      },
+    };
+    this.socket.sendMessage(dataLogin);
   }
 }
