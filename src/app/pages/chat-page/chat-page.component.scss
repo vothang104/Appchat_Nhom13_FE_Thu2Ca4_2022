@@ -165,11 +165,9 @@ $color-blue-light: #1c98f7;
       transition: all 0.1s linear;
 
       &.active {
-        background-image: linear-gradient(
-          to right,
-          $color-blue-light,
-          $color-blue
-        );
+        background-image: linear-gradient(to right,
+            $color-blue-light,
+            $color-blue );
         pointer-events: none;
 
         .icon {
@@ -293,17 +291,41 @@ $color-blue-light: #1c98f7;
       .message {
         width: fit-content;
         max-width: 60%;
-        padding: 8px 10px;
-        border-radius: 50px;
         color: #fff;
         font-size: 14px;
-        background-color: $color-blue;
         align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+
+        .content {
+          display: inline-block;
+          padding: 15px;
+          background-color: $color-blue;
+          border-radius: 20px;
+          word-break: break-all;
+          line-break: anywhere;
+        }
+
+        .user {
+          color: #ccc;
+        }
 
         &.another {
-          background-color: #ccc;
           color: #000;
           align-self: flex-start;
+
+          .content {
+            display: inline-block;
+            padding: 8px 10px;
+            background-color: #ccc;
+            border-radius: 20px;
+            word-break: break-all;
+            line-break: anywhere;
+          }
+
+          .user {
+            color: #ccc;
+          }
         }
       }
     }
@@ -318,11 +340,9 @@ $color-blue-light: #1c98f7;
       align-items: center;
       padding: 0 20px;
       border-radius: 0 0 6px 6px;
-      background-image: linear-gradient(
-        to right,
-        $color-blue-light,
-        $color-blue
-      );
+      background-image: linear-gradient(to right,
+          $color-blue-light,
+          $color-blue );
 
       .icon {
         display: inline-block;
@@ -395,8 +415,10 @@ $color-blue-light: #1c98f7;
   color: white;
   text-decoration: none;
 }
+
 .logout-action {
   cursor: pointer;
+
   &:hover {
     text-decoration: underline;
   }

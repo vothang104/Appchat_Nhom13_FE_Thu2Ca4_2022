@@ -32,9 +32,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
             this.userList = data.data;
             break;
           case 'JOIN_ROOM':
-            this.room = this.nameRoom;
-            console.log('data resp', data);
-
+            this.room = data.data.name;
             this.chatData = data.data.chatData.reverse();
             break;
           case 'GET_ROOM_CHAT_MES':
@@ -44,8 +42,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
             this.chatData = data.data.reverse();
             break;
           case 'SEND_CHAT':
-            console.log('send chat data ~ ', data);
-
+            this.chatData.push(data.data)
             break;
           default:
             break;
@@ -170,5 +167,10 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       },
     };
     this.socket.sendMessage(dataLogout);
+    this.socket.connect()
+  }
+  // relogin
+  reLogin() {
+    this.socket.reLogin()
   }
 }

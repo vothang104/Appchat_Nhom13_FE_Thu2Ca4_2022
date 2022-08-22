@@ -13,9 +13,11 @@ export class WebsocketServiceService {
     console.log('status ~ ', this.ws.readyState);
     this.ws.send(JSON.stringify(data))
   }
+  connect() {
+    this.ws = new WebSocket(chatUrl)
+  }
   reLogin(): void {
-    const reLoginCodeJson = localStorage.getItem('relogin_code')
-    const dataReLogin = JSON.parse(reLoginCodeJson || '')
+    const reLoginCode = JSON.parse(localStorage.getItem('relogin_code') || '')
     const user = localStorage.getItem('currentUser') || ''
     const data = {
       action: 'onchat',
@@ -23,10 +25,12 @@ export class WebsocketServiceService {
         event: 'RE_LOGIN',
         data: {
           user: user,
-          code: dataReLogin.RE_LOGIN_CODE
+          code: reLoginCode.RE_LOGIN_CODE
         }
       }
     }
-    this.sendMessage(data)
+    console.log('relogin data ~ ', data);
+
+    this.ws.send(JSON.stringify(data))
   }
 }
