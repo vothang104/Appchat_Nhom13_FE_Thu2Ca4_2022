@@ -11,6 +11,7 @@ import { ChatPageComponent } from './pages/chat-page/chat-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Course1Component } from './course1/course1.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     ReactiveFormsModule,
     HttpClientModule,
     PickerModule,
+    NgToastModule,
   ],
   providers: [WebsocketServiceService],
   bootstrap: [AppComponent],
