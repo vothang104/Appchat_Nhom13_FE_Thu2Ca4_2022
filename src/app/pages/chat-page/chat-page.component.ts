@@ -238,6 +238,21 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       duration: 5000,
     });
   }
+  topeople(): void {
+    this.isRoom = false;
+    this.room = this.nameRoom;
+    const data = {
+      action: 'onchat',
+      data: {
+        event: 'GET_PEOPLE_CHAT_MES',
+        data: {
+          name: this.nameRoom,
+          page: 1,
+        },
+      },
+    };
+    this.socket.sendMessage(data);
+  }
   // logout
   logOut() {
     const dataLogout = {
