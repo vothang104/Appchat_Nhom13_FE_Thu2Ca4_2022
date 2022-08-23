@@ -2,6 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 
+import { NgToastService } from 'ng-angular-popup';
+
 @Component({
   selector: 'app-chat-page',
   templateUrl: './chat-page.component.html',
@@ -53,7 +55,11 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   }
   //end emoji
 
-  constructor(private socket: WebsocketServiceService, private router: Router) {
+  constructor(
+    private socket: WebsocketServiceService,
+    private router: Router,
+    private toast: NgToastService
+  ) {
     this.currentUser = localStorage.getItem('currentUser') || '';
     this.socket.ws.onmessage = (resp) => {
       console.log('resp ~ ', resp);
@@ -226,6 +232,11 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       },
     };
     this.socket.sendMessage(data);
+    this.toast.success({
+      detail: 'Success Message',
+      summary: 'Create Room is Success',
+      duration: 5000,
+    });
   }
   // logout
   logOut() {

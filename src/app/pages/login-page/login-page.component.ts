@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WebsocketServiceService } from 'src/app/websocket-service.service';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login-page',
@@ -17,24 +18,36 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    private toast: NgToastService,
     private socket: WebsocketServiceService
   ) {
     this.socket.ws.onmessage = (resp: any) => {
       const data = JSON.parse(resp.data);
       console.log(data);
       if (data.status === 'success') {
-        localStorage.setItem('relogin_code', JSON.stringify(data.data))
+        localStorage.setItem('relogin_code', JSON.stringify(data.data));
         this.router.navigate(['/chat']);
+        this.toast.success({
+          detail: 'Success Message',
+          summary: 'Login is Success',
+          duration: 5000,
+        });
         localStorage.setItem('currentUser', this.user);
       } else {
-        alert('sai thong tin dang nhap');
+        this.toast.error({
+          detail: 'Error Message',
+          summary: 'Login is Failed, Try  againlater',
+          duration: 5000,
+        });
         this.router.navigate(['/login']);
+        this.user = '';
+        this.pass = '';
       }
     };
   }
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   loginForm: FormGroup = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(4)]],
