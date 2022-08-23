@@ -82,6 +82,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
             this.chatData = data.data.chatData.reverse();
             break;
           case 'GET_PEOPLE_CHAT_MES':
+            this.room = this.nameRoom;
             this.chatData = data.data.reverse();
             break;
           case 'SEND_CHAT':
@@ -240,7 +241,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   }
   topeople(): void {
     this.isRoom = false;
-    this.room = this.nameRoom;
+
     const data = {
       action: 'onchat',
       data: {
