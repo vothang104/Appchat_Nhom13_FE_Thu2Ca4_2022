@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { ChatPageComponent } from './pages/chat-page/chat-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Course1Component } from './course1/course1.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { Course1Component } from './course1/course1.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PickerModule,
   ],
   providers: [WebsocketServiceService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
