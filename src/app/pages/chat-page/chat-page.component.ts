@@ -15,6 +15,43 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   isRoom: boolean = false;
   messageText: string = '';
   nameRoom: string = '';
+  //emoji
+  showEmojiPicker = false;
+  sets = [
+    'native',
+    'google',
+    'twitter',
+    'facebook',
+    'emojione',
+    'apple',
+    'messenger',
+  ];
+  set = 'twitter';
+
+  toggleEmojiPicker() {
+    console.log(this.showEmojiPicker);
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event: { emoji: { native: any } }) {
+    console.log(this.messageText);
+    const { messageText } = this;
+    console.log(messageText);
+    console.log(`${event.emoji.native}`);
+    const text = `${messageText}${event.emoji.native}`;
+
+    this.messageText = text;
+    // this.showEmojiPicker = false;
+  }
+
+  onFocus() {
+    console.log('focus');
+    this.showEmojiPicker = false;
+  }
+  onBlur() {
+    console.log('onblur');
+  }
+  //end emoji
 
   constructor(private socket: WebsocketServiceService, private router: Router) {
     this.currentUser = localStorage.getItem('currentUser') || '';
@@ -42,7 +79,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
             this.chatData = data.data.reverse();
             break;
           case 'SEND_CHAT':
-            this.chatData.push(data.data)
+            this.chatData.push(data.data);
             break;
           default:
             break;
@@ -144,7 +181,7 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
   }
   // send people
   sendPeople(): void {
-    if (!this.messageText) return
+    if (!this.messageText) return;
     const data = {
       action: 'onchat',
       data: {
@@ -159,10 +196,10 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
     this.chatData.push({ name: this.currentUser, mes: this.messageText });
     console.log('send with data ~ ', data);
     this.socket.sendMessage(data);
-    this.messageText = ''
+    this.messageText = '';
   }
   sendRoom(): void {
-    if (!this.messageText) return
+    if (!this.messageText) return;
     const data = {
       action: 'onchat',
       data: {
@@ -175,8 +212,8 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       },
     };
     this.socket.sendMessage(data);
-    this.chatData.push({ name: this.currentUser, mes: this.messageText })
-    this.messageText = ''
+    this.chatData.push({ name: this.currentUser, mes: this.messageText });
+    this.messageText = '';
   }
   createRoom(): void {
     const data = {
@@ -184,11 +221,11 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       data: {
         event: 'CREATE_ROOM',
         data: {
-          name: this.nameRoom
-        }
-      }
-    }
-    this.socket.sendMessage(data)
+          name: this.nameRoom,
+        },
+      },
+    };
+    this.socket.sendMessage(data);
   }
   // logout
   logOut() {
@@ -199,10 +236,10 @@ export class ChatPageComponent implements OnInit, AfterViewInit {
       },
     };
     this.socket.sendMessage(dataLogout);
-    this.socket.connect()
+    this.socket.connect();
   }
   // relogin
   reLogin() {
-    this.socket.reLogin()
+    this.socket.reLogin();
   }
 }

@@ -1,3 +1,25 @@
+@import "~@ctrl/ngx-emoji-mart/picker";
+.emoji-mart-anchor {
+  display: flex !important;
+}
+
+.btn-emoji {
+  border-radius: 100rem;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  &:hover {
+    transform: scale(1.1);
+    transition: all ease 0.3s;
+  }
+}
+
 $color-blue: #0072b5;
 $color-blue-light: #1c98f7;
 
@@ -165,9 +187,11 @@ $color-blue-light: #1c98f7;
       transition: all 0.1s linear;
 
       &.active {
-        background-image: linear-gradient(to right,
-            $color-blue-light,
-            $color-blue );
+        background-image: linear-gradient(
+          to right,
+          $color-blue-light,
+          $color-blue
+        );
         pointer-events: none;
 
         .icon {
@@ -331,6 +355,7 @@ $color-blue-light: #1c98f7;
     }
 
     .typing {
+      position: relative;
       width: 100%;
       height: 10%;
       flex-shrink: 0;
@@ -340,9 +365,11 @@ $color-blue-light: #1c98f7;
       align-items: center;
       padding: 0 20px;
       border-radius: 0 0 6px 6px;
-      background-image: linear-gradient(to right,
-          $color-blue-light,
-          $color-blue );
+      background-image: linear-gradient(
+        to right,
+        $color-blue-light,
+        $color-blue
+      );
 
       .icon {
         display: inline-block;
